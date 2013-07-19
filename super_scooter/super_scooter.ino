@@ -35,11 +35,14 @@ int player_position_y = 0;
 int player_position_x = 1;
 
 int number_of_enemies = 20;
-// define the enemy arrays.
+// This defines the enemies if you want to build your level by hand.
+// Below, these values will be overwritten by random values. But I 
+// wanted to leave this in so you can see how to define a level. 
+// Simply comment out the code below that fills in random the values.
 int enemies_x[20] = {
-  16, 22, 27, 34, 38, 42, 47, 51, 54, 58};
+  16, 22, 27, 34, 38, 42, 47, 51, 54, 58, 65, 70, 74, 78, 83, 87, 91, 95, 99, 104};
 int enemies_y[20] = {
-  1, 0, 0, 1, 0, 1, 0, 1, 1, 0};
+  1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0};
 
 // the current difficulty setting of the game
 int difficulty = 3;
@@ -62,12 +65,14 @@ void setup()
   lcd.print("Super Scooter!!!");
 
   // seed the random number generator so we get different values every new run
-  randomSeed(millis());
+  // analog pin 1 should be a "fairly" random value because it is "floating"
+  randomSeed(analogRead(1));
 
   // randomly generate the placement of the enemies so each game is different.
   // first, make sure we start with at least the width of the lcd so no enemies
   // are on the screen when we first launch. Also need to be sure we have at 
   // least the ship length between the enemies to be sure the game is solvable!
+  // COMMENT OUT THE BLOCK BELOW TO USE DEININED VALUES ABOVE
   int accumulation = lcd_width;
   for(int i=0; i<number_of_enemies; i++) {
     // randomly pick a number between the ship's length and 8
